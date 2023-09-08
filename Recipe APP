@@ -1,0 +1,55 @@
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+
+
+  // Add more recipes here...
+];
+
+const RecipeApp = () => {
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+
+  const handleRecipePress = (recipe) => {
+    setSelectedRecipe(recipe);
+  };
+
+  const handleClosePress = () => {
+    setSelectedRecipe(null);
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginVertical: 20 }}>
+        Recipe App
+      </Text>
+
+      {selectedRecipe ? (
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <Image source={selectedRecipe.image} style={{ width: 200, height: 200, marginBottom: 20 }} />
+          <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>{selectedRecipe.title}</Text>
+          <Text style={{ marginBottom: 10 }}>Ingredients:</Text>
+          {selectedRecipe.ingredients.map((ingredient, index) => (
+            <Text key={index}>{ingredient}</Text>
+          ))}
+          <Text style={{ marginTop: 10 }}>Instructions:</Text>
+          {selectedRecipe.instructions.map((instruction, index) => (
+            <Text key={index}>{instruction}</Text>
+          ))}
+          <TouchableOpacity onPress={handleClosePress} style={{ marginTop: 20, padding: 10, backgroundColor: 'lightgray' }}>
+            <Text style={{ fontWeight: 'bold' }}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={{ flex: 1 }}>
+          {recipes.map((recipe) => (
+            <TouchableOpacity key={recipe.id} onPress={() => handleRecipePress(recipe)} style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
+              <Image source={recipe.image} style={{ width: 50, height: 50, marginRight: 10 }} />
+              <Text>{recipe.title}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+    </View>
+  );
+};
+
+export default RecipeApp;
